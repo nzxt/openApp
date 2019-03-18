@@ -1,0 +1,44 @@
+{
+  "title": "оупінАпп",
+  "title_html": "<span class='orange--text'>оупін</span><span class='red--text'>Апп</span>",
+  "actions": "Дії",
+  "yes": "Так",
+  "no": "Ні",
+  "edit": "Редагувати",
+  "profile": "Профіль",
+  "email": "Пошта",
+  "username": "Ім'я користувача",
+  "password": "Пароль",
+  "password_confirm": "Підтвердіть пароль",
+  "signin": "Увійти",
+  "login": "Логін",
+  "forgot_password": "Забули пароль?",
+  "remove": "Видалити",
+  "destroy_confirm_title": "Підтвердіть",
+  "destroy_confirm": "Ви впевнені, що бажаєте видалити це?",
+  "logout": "Вийти",
+  "signout": "Вийти",
+  "back": "Повернутись",
+  "save": "Зберегти",
+  "update": "Оновити",
+  "messages": {
+    "signin_title": "Увійдіть в свій акаунт",
+    "signin_tip": "Привіт, Користувач! Увійдіть, спочатку.."
+  },
+  "forms": {
+    "submit": "Відправити",
+    "cancel": "Скасувати",
+    "next": "Далі",
+    "previous": "Назад",
+    "errors": {
+      "required": "Будь ласка, заповніть це.",
+      "standard": "Сталася помилка сервера."
+    }
+  },
+  "user": {
+    "singular": "користувач",
+    "plural": "користувачі",
+    "new": "Новий користувач",
+    "edit": "Редагувати користувача"
+  }
+}

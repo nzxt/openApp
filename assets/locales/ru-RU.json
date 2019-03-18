@@ -1,0 +1,44 @@
+{
+  "title": "оупэнАпп",
+  "title_html": "<span class='orange--text'>оупэн</span><span class='red--text'>Апп</span>",
+  "actions": "Действия",
+  "yes": "Да",
+  "no": "Нет",
+  "edit": "Редактировать",
+  "profile": "Профиль",
+  "email": "Почта",
+  "username": "Имя пользователя",
+  "password": "Пароль",
+  "password_confirm": "Подтвердите пароль",
+  "signin": "Войти",
+  "login": "Логин",
+  "forgot_password": "Забыли пароль?",
+  "remove": "Удалить",
+  "destroy_confirm_title": "Пожалуйста подтвердите",
+  "destroy_confirm": "Вы уверены, что хотите удалить это?",
+  "logout": "Выйти",
+  "signout": "Выйти",
+  "back": "Вернуться",
+  "save": "Сохранить",
+  "update": "Обновить",
+  "messages": {
+    "signin_title": "Войдите в свой аккаунт",
+    "signin_tip": "Привет, Пользователь! Войдите, для начала.."
+  },
+  "forms": {
+    "submit": "Отправить",
+    "cancel": "Отменить",
+    "next": "Далее",
+    "previous": "Назад",
+    "errors": {
+      "required": "Пожалуйста, заполните это.",
+      "standard": "Произошла ошибка сервера."
+    }
+  },
+  "user": {
+    "singular": "пользователь",
+    "plural": "пользователи",
+    "new": "Новый пользователь",
+    "edit": "Редактировать пользователя"
+  }
+}
