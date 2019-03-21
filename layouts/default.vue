@@ -49,7 +49,7 @@ interface menuItem {
   }
 })
 export default class DefaultLayout extends Vue {
-  clipped: Boolean = false
+  clipped: Boolean = true
   drawer: Boolean = false
   inset: Boolean = false
   miniVariant: Boolean = false
