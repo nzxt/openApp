@@ -5,26 +5,27 @@ v-container
       v-alert.error(v-model='loginHasError', icon='mdi-alert-decagram')
         | {{ 'Error while logging in..' }}
   v-layout(wrap, justify-center)
-    v-flex(xs11, sm8, md6, lg4)
-      v-card(color='blue-grey lighten-5')
+    v-flex(xs11, sm8, md6, lg5)
+      v-card(class='elevation-7')
         //- v-img(contain, src='/images/white-boccia-ball.jpg', alt='Boccia Ball')
         v-form(v-model='valid', @submit.prevent='localSignIn')
-          v-card-title.justify-center.display-1.blue-grey.lighten-5.font-weight-thin.warning--text {{ $t('signin') }}
-            v-spacer
+          v-card-title.justify-space-between.display-1.font-weight-thin.warning--text {{ $t('signin') }}
+            v-icon.ml-2(color='grey', style='font-size:112px;') mdi-account-circle-outline
             v-btn(icon, @click='signOut', v-if='$auth.loggedIn')
               v-icon.mdi-24px mdi-logout-variant
-
             v-btn-toggle(v-else)
               //- v-btn(icon, value='local')
                 v-icon.mdi-24px mdi-account-circle
-              v-btn(icon, @click='facebookSignIn')
-                v-icon.mdi-24px mdi-facebook-box
               v-btn(icon, @click='googleSignIn')
-                v-icon.mdi-24px mdi-google
+                v-icon.mdi-24px.red--text mdi-google
+              v-btn(icon, @click='facebookSignIn')
+                v-icon.mdi-24px.blue--text mdi-facebook-box
+              v-btn(icon, @click='twitterSignIn')
+                v-icon.mdi-24px.light-blue--text mdi-twitter
           v-card-text
             v-text-field(
-              v-model='login',
-              :label='$t("login")',
+              v-model='username',
+              :label='$t("username")',
               prepend-icon='mdi-account-box-outline',
               browser-autocomplete='username',
               clearable
@@ -41,7 +42,7 @@ v-container
               :rules='[...requiredField, ...minLength]'
               clearable
             )
-          v-card-actions.blue-grey.lighten-4
+          v-card-actions.lighten-3
             v-btn.primary(flat, block, type='submit', :disabled='!valid') {{ $t('forms.submit') }}
 </template>
 
@@ -57,12 +58,8 @@ import ValidateRules from '~/mixins/validate'
 export default class LoginPage extends Vue {
   valid: Boolean = false
   visible: Boolean = false
-  login: string | null = 'admin'
+  username: string | null = 'admin'
   password: string | null = 'qwerty'
-
-  get username (): string | null {
-    return `${this.login}@example.com`
-  }
 }
 </script>
 
