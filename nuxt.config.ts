@@ -4,7 +4,9 @@ import pkg from './package.json'
 const i18n = require('./config/i18n')
 
 const isDev = process.env.NODE_ENV !== 'production'
-const BASE_URL = process.env.API_URL || 'http://localhost:3003'
+
+// const API_URL = process.env.API_URL || 'http://localhost:5000'
+// const AUTH_URL = process.env.AUTH_URL || 'http://localhost:3030'
 
 export default {
   mode: 'spa',
@@ -54,6 +56,7 @@ export default {
   ** Global CSS
   */
   css: [
+    '@mdi/font/css/materialdesignicons.css',
     '~/assets/style/app'
   ],
 
@@ -87,8 +90,13 @@ export default {
   */
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
+    // proxy: true,
     debug: isDev,
-    baseURL: BASE_URL
+    // baseURL: API_URL
+  },
+  proxy: {
+    '/api': 'http://localhost:5000',
+    '/auth': 'http://localhost:3000'
   },
 
  /*
@@ -98,20 +106,23 @@ export default {
     strategies: {
       local: {
         endpoints: {
-          login: { url: '/login', method: 'post', propertyName: 'access_token' },
+          login: { propertyName: 'token.accessToken' }, // { url: '/login', method: 'post', propertyName: 'access_token' },
           logout: false,
-          user: { url: '/users/2', method: 'get', propertyName: 'user' }
+          user: false // { url: '/users/2', method: 'get', propertyName: 'user' }
         },
         tokenRequired: true,
         tokenType: 'Bearer'
       },
       facebook: {
-        client_id: '<your_facebook_app_id>',
-        userinfo_endpoint: 'https://graph.facebook.com/v2.12/me?fields=about,name,picture{url},email',
-        scope: ['public_profile', 'email']
+        client_id: '1671464192946675',
+        userinfo_endpoint: 'https://graph.facebook.com/v2.12/me?fields=about,name,picture{url},email,birthday',
+        scope: ['public_profile', 'email', 'user_birthday']
       },
       google: {
-        client_id: '<your_google_oauth_id>'
+        client_id: '956748748298-kr2t08kdbjq3ke18m3vkl6k843mra1cg.apps.googleusercontent.com'
+      },
+      twitter: {
+        client_id: 'FAJNuxjMTicff6ciDKLiZ4t0D'
       }
     },
     redirect: {
@@ -125,6 +136,7 @@ export default {
   router: {
     middleware: 'auth'
   },
+  serverMiddleware: ['../api/auth'],
 
   vue: {
     config: {
@@ -139,6 +151,10 @@ export default {
   ** Build configuration
   */
   build: {
+    // extractCSS: true,
+    babel: {
+      plugins: ['@babel/plugin-proposal-optional-chaining']
+    },
     transpile: ['vuetify/lib'],
     plugins: [new VuetifyLoaderPlugin()],
     loaders: {

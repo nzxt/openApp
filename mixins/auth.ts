@@ -23,7 +23,7 @@ export default class AuthMixin extends Vue {
     this.$noty.show('<span class="subheading">Log in...</span>')
     await this.$auth.loginWith('local', {
       data: {
-        email: this.username,
+        username: this.username,
         password: this.password
       }
     }).then(() => {
@@ -71,6 +71,13 @@ export default class AuthMixin extends Vue {
   async facebookSignIn () {
     this.$noty.show('<span class="subheading">Log in w/ Facebook...</span>')
     await this.$auth.loginWith('facebook').catch((e) => {
+      this.$noty.error('Error', e.message)
+    })
+  }
+
+  async twitterSignIn () {
+    this.$noty.show('<span class="subheading">Log in w/ Twitter...</span>')
+    await this.$auth.loginWith('twitter').catch((e) => {
       this.$noty.error('Error', e.message)
     })
   }
