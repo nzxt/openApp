@@ -2,7 +2,7 @@
   v-layout.wrapper(row, align-center)
     div.hidden-xs-only
       v-tooltip(v-for='locale in $i18n.locales', :key='locale.code', bottom)
-        v-btn.ma-0(slot='activator', icon, @click='onLocaleSwitch(locale.code)')
+        v-btn.ma-0(slot='activator', small, icon, @click='onLocaleSwitch(locale.code)')
           flag(:iso='locale.flag', :title='locale.iso')
         span {{ locale.name }}
 
@@ -24,11 +24,11 @@ export default {
 }
 </script>
 
-<style scoped lang="stylus">
+<style lang="stylus" scoped>
 .wrapper
   max-width 110px
 
 .flag-icon
-  font-size 22px
+  font-size 18px
   border-radius 50%
 </style>
