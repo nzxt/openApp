@@ -9,7 +9,8 @@ module.exports = {
     parser: '@typescript-eslint/parser' // or 'babel-eslint'
   },
   extends: [
-    '@nuxtjs'
+    '@nuxtjs',
+    'plugin:nuxt/recommended'
   ],
   // add your custom rules here
   rules: {
@@ -23,24 +24,3 @@ module.exports = {
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off'
   }
 }
-
-// module.exports = {
-//   root: true,
-//   env: {
-//     browser: true,
-//     node: true
-//   },
-//   parserOptions: {
-//     parser: 'babel-eslint',
-//     ecmaFeatures: {
-//       "legacyDecorators": true
-//     }
-//   },
-//   extends: [
-//     '@nuxtjs',
-//     'plugin:nuxt/recommended'
-//   ],
-//   // add your custom rules here
-//   rules: {
-//   }
-// }
