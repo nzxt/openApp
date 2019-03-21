@@ -1,7 +1,7 @@
 <template lang="pug">
 v-layout(column, justify-center, align-center)
   v-flex(xs12, sm8, md6)
-    div.text-xs-center
+    div.my-3.text-xs-center
       Logo
       VuetifyLogo
     v-card
@@ -12,7 +12,7 @@ v-layout(column, justify-center, align-center)
           em
             small — John Leider
       v-card-actions
-        v-btn(color='primary', flat, nuxt, to='/inspire') Continue
+        v-btn.primary(flat, nuxt, to='/inspire') Continue
 </template>
 
 <script>
