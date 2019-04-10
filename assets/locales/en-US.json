@@ -1,6 +1,24 @@
 {
+  "svg": {
+	"text1": [
+	  "You",
+	  "Are",
+	  "Welcome"
+	],
+	"text2": [
+	  "Sales",
+	  "Assessment",
+	  "Center"
+	],
+	"text3": [
+	  "Let's",
+	  "Play",
+	  "Tests"
+	]
+  },
   "title": "openApp",
-  "title_html": "<span class='orange--text'>open</span><span class='red--text'>App</span>",
+  "title_html": "<span class='orange--text'>open</span><span class='red--text'>Application</span>",
+  "short_title_html": "<span class='orange--text'>open</span><span class='red--text'>App</span>",
   "actions": "Actions",
   "yes": "Yes",
   "no": "No",

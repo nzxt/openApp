@@ -16,7 +16,7 @@ app.use(
   jwt({
     secret: 'dummy'
   }).unless({
-    path: '/api/auth/login'
+    path: '/login'
   })
 )
 
@@ -64,8 +64,12 @@ app.use((err, req, res, next) => {
   res.status(401).send(err + '')
 })
 
+app.listen(3030, () => {
+  console.log('Running fake Auth API Server at http://localhost:3030')
+})
+
 // -- export app --
-module.exports = {
-  path: '/api/auth',
-  handler: app
-}
+// module.exports = {
+//   path: '/api/auth',
+//   handler: app
+// }

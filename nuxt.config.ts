@@ -5,8 +5,8 @@ const i18n = require('./config/i18n')
 
 const isDev = process.env.NODE_ENV !== 'production'
 
-// const API_URL = process.env.API_URL || 'http://localhost:5000'
-// const AUTH_URL = process.env.AUTH_URL || 'http://localhost:3030'
+const { BASE_URL } = process.env
+const API_URL = BASE_URL + '/api'
 
 export default {
   mode: 'spa',
@@ -34,29 +34,22 @@ export default {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      {
-        rel: 'stylesheet',
-        href:
-          'https://fonts.googleapis.com/css?family=Exo+2:100,300,400,500,700,900&amp;subset=cyrillic'
-      },
-      {
-        rel: 'stylesheet',
-        href:
-          'https://fonts.googleapis.com/css?family=Material+Icons'
-      }
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Exo+2:100,300,400,500,700,900&amp;subset=cyrillic' }
+      // { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Material+Icons' }
     ]
   },
 
   /*
   ** Customize the progress-bar color
   */
-  loading: { color: '#fff' },
+  loading: { color: '#0022bb' },
 
   /*
   ** Global CSS
   */
   css: [
     '@mdi/font/css/materialdesignicons.css',
+    'vuejs-noty/dist/vuejs-noty.css',
     '~/assets/style/app'
   ],
 
@@ -64,6 +57,7 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
+    // '@/plugins/axios',
     '@/plugins/vuetify',
     '@/plugins/noty',
     '@/plugins/hotkey',
@@ -78,11 +72,11 @@ export default {
   */
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
-    '@nuxtjs/axios',
+    ['@nuxtjs/dotenv', { filename: '.env' }],
     '@nuxtjs/pwa',
+    '@nuxtjs/axios',
     '@nuxtjs/auth',
     ['nuxt-i18n', i18n],
-    ['@nuxtjs/dotenv', { filename: '.env' }],
     ['@nuxtjs/moment', { locales: ['uk', 'ru'],  defaultLocale: 'en',  plugin: true }]
   ],
   /*
@@ -90,13 +84,12 @@ export default {
   */
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
-    // proxy: true,
     debug: isDev,
-    // baseURL: API_URL
+    proxy: true,
+    baseURL: BASE_URL
   },
   proxy: {
-    '/api': 'http://localhost:5000',
-    '/auth': 'http://localhost:3000'
+    '/api': API_URL
   },
 
  /*
@@ -106,12 +99,13 @@ export default {
     strategies: {
       local: {
         endpoints: {
-          login: { propertyName: 'token.accessToken' }, // { url: '/login', method: 'post', propertyName: 'access_token' },
+          login: { url: `${BASE_URL}/Login`, method: 'post', propertyName: 'access_token' },
           logout: false,
-          user: false // { url: '/users/2', method: 'get', propertyName: 'user' }
+          user: { url: `${BASE_URL}/Users/1`, method: 'get', propertyName: 'user' }
         },
-        tokenRequired: true,
-        tokenType: 'Bearer'
+        // tokenRequired: true,
+        // tokenType: 'Bearer'
+        refreshToken: true
       },
       facebook: {
         client_id: '1671464192946675',
@@ -125,25 +119,30 @@ export default {
         client_id: 'FAJNuxjMTicff6ciDKLiZ4t0D'
       }
     },
+    resetOnError: true,
     redirect: {
+      home: '/',
       login: '/login',
       logout: '/',
-      user: '/profile',
-      home: '/',
-      callback:'/callback'
-    }
+      callback: '/callback'
+    },
+    cookie: false,
+    // plugins: ['~/plugins/auth']
   },
+
+  /*
+  ** Router config
+  */
   router: {
     middleware: 'auth'
   },
-  serverMiddleware: ['../api/auth'],
 
   vue: {
     config: {
-      productionTip: false,
       devtools: true,
       silent: !isDev,
-      performance: isDev
+      performance: isDev,
+      productionTip: false
     }
   },
 
@@ -151,7 +150,7 @@ export default {
   ** Build configuration
   */
   build: {
-    // extractCSS: true,
+    extractCSS: true,
     babel: {
       plugins: ['@babel/plugin-proposal-optional-chaining']
     },

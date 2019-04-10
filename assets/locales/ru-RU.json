@@ -1,6 +1,24 @@
 {
+  "svg": {
+	"text1": [
+	  "Рады",
+	  "Вас",
+	  "Видеть"
+	],
+	"text2": [
+	  "Центр",
+	  "Оценивания",
+	  "Продаж"
+	],
+	"text3": [
+	  "Давай",
+	  "Пройдём",
+	  "Тесты"
+	]
+  },
   "title": "оупэнАпп",
-  "title_html": "<span class='orange--text'>оупэн</span><span class='red--text'>Апп</span>",
+  "title_html": "<span class='orange--text'>оупэн</span><span class='red--text'>Аппликейшн</span>",
+  "short_title_html": "<span class='orange--text'>оупэн</span><span class='red--text'>Апп</span>",
   "actions": "Действия",
   "yes": "Да",
   "no": "Нет",

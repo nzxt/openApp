@@ -1,6 +1,24 @@
 {
+  "svg": {
+	"text1": [
+	  "Раді",
+	  "Вас",
+	  "Бачити"
+	],
+	"text2": [
+	  "Центр",
+	  "Оцінювання",
+	  "Продаж"
+	],
+	"text3": [
+	  "Давай",
+	  "Пройдемо",
+	  "Тести"
+	]
+  },
   "title": "оупенАпп",
-  "title_html": "<span class='orange--text'>оупен</span><span class='red--text'>Апп</span>",
+  "title_html": "<span class='orange--text'>оупен</span><span class='red--text'>Апплікєйшн</span>",
+  "short_title_html": "<span class='orange--text'>оупен</span><span class='red--text'>Апп</span>",
   "actions": "Дії",
   "yes": "Так",
   "no": "Ні",

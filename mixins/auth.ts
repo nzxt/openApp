@@ -2,10 +2,12 @@ import { Component, Vue } from 'vue-property-decorator'
 
 @Component
 export default class AuthMixin extends Vue {
-  $noty: any
-  $auth: any
+  /**
+   * Default fields to catch username/password values
+   */
   username!: string
   password!: string
+
   /**
    * This define if login got an error
    * @type {boolean}
@@ -19,15 +21,15 @@ export default class AuthMixin extends Vue {
    *
    * @returns {Promise<T>}
    */
-  async localSignIn () {
-    this.$noty.show('<span class="subheading">Log in...</span>')
+  async signIn () {
+    this.$noty.show('<span class="subheading">Log in w/ Local...</span>')
     await this.$auth.loginWith('local', {
       data: {
         username: this.username,
         password: this.password
       }
     }).then(() => {
-      this.$noty.success('Successfully connected')
+      this.$noty.success('Successfully connected!')
     }).catch((err) => {
       this.$noty.error('Error while connecting: ' + err.message)
       this.loginHasError = true
@@ -44,7 +46,7 @@ export default class AuthMixin extends Vue {
   async signOut () {
     this.$noty.show('<span class="subheading">Logging out...</span>')
     await this.$auth.logout().then(() => {
-      this.$noty.success('Successfully disconnected')
+      this.$noty.info('Successfully disconnected')
     }).catch((err) => {
       this.$noty.error('Error while disconnecting: ' + err.message)
     })

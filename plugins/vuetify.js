@@ -1,8 +1,10 @@
 import Vue from 'vue'
 import Vuetify from 'vuetify/lib'
+
 import en from 'vuetify/es5/locale/en'
 import uk from 'vuetify/es5/locale/uk'
 import ru from 'vuetify/es5/locale/ru'
+
 import colors from 'vuetify/es5/util/colors'
 
 Vue.use(Vuetify, {
@@ -18,6 +20,10 @@ Vue.use(Vuetify, {
     info: colors.teal.lighten1,
     warning: colors.amber.base,
     error: colors.deepOrange.accent4,
-    success: colors.green.accent3
+    success: colors.green.accent3,
+    tertiary: '#D51325'
+  },
+  options: {
+    customProperties: true
   }
 })

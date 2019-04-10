@@ -1,12 +1,13 @@
 <template lang="pug">
-v-app(:dark='darkTheme')
-  v-navigation-drawer(v-model='primaryDrawer.model' :mini-variant='primaryDrawer.mini' :clipped='primaryDrawer.clipped' fixed app)
-    v-list
+v-app(:dark='darkTheme' v-hotkey='keymap')
+  v-navigation-drawer(dark class='tertiary' v-model='primaryDrawer.model' :mini-variant='primaryDrawer.mini' :clipped='primaryDrawer.clipped' fixed stateless app)
+    v-list(two-line)
       v-list-tile(v-for='(item, i) in items' :key='i' :to='item.to' router exact)
         v-list-tile-action
-          v-icon {{ item.icon }}
+          v-icon.mdi-36px {{ item.icon }}
         v-list-tile-content
           v-list-tile-title.title(v-text='item.title')
+          v-list-tile-sub-title.body-2(v-text='item.description')
     v-list
       v-list-tile
         v-list-tile-action
@@ -15,41 +16,48 @@ v-app(:dark='darkTheme')
           | Night Mode
   v-toolbar(:clipped-left='primaryDrawer.clipped' fixed app)
     //- v-toolbar-side-icon(@click='drawer = !drawer')
-    v-btn(icon)
-      tasty-burger-button(@toggle='primaryDrawer.model = !primaryDrawer.model' :active='primaryDrawer.model' type='elastic' size='s' color='orange' active-color='red')
-    v-btn(small icon @click.stop='primaryDrawer.mini = !primaryDrawer.mini')
-      v-icon {{ `mdi-chevron-double-${primaryDrawer.mini ? 'right' : 'left'}` }}
-    v-btn(small icon @click.stop='primaryDrawer.clipped = !primaryDrawer.clipped')
+    // v-btn(icon flat @click.stop.prevent @click='primaryDrawer.model = !primaryDrawer.model')
+    tasty-burger-button.mr-3(
+      :active.sync='primaryDrawer.model'
+      @toggle='primaryDrawer.model = !primaryDrawer.model'
+      type='elastic'
+      size='m'
+      color='orange'
+      active-color='red'
+    )
+    v-btn.light-blue.lighten-5(small flat round @click.stop='primaryDrawer.mini = !primaryDrawer.mini')
+      // v-icon {{ `mdi-chevron-left-${primaryDrawer.mini ? 'right' : 'left'}` }}
+      v-icon.mdi-24px(left color='grey') {{ `mdi-toggle-switch${primaryDrawer.mini ? '-off' : ''}` }}
+      span.grey--text.caption {{ primaryDrawer.mini ? 'Mini' : 'Wide'}}
+    v-btn.hidden-sm-and-down(small icon @click.stop='primaryDrawer.clipped = !primaryDrawer.clipped')
       v-icon mdi-application
-    v-btn(small icon @click.stop='footer.inset = !footer.inset')
+    v-btn.hidden-sm-and-down(small icon @click.stop='footer.inset = !footer.inset')
       v-icon.mdi-18px mdi-color-helper
-    v-toolbar-title.headline.font-weight.bold(v-html='$t("title_html")')
+    v-toolbar-title.headline.font-weight.bold.hidden-sm-and-down(v-html='$t("title_html")')
+    v-toolbar-title.headline.font-weight.bold.hidden-md-and-up(v-html='$t("short_title_html")')
     v-spacer
     LocaleSwitcher
     v-spacer
-    v-btn(icon @click.stop='rightDrawer = !rightDrawer')
-      v-icon mdi-message-reply
+    v-btn(icon @click.stop='secondaryDrawer.model = !secondaryDrawer.model')
+      v-icon.mdi-24px(color='grey') mdi-message-reply
   v-content
     v-container
       nuxt
-  v-navigation-drawer(v-model='secondaryDrawer.model' temporary fixed)
+  v-navigation-drawer(v-model='secondaryDrawer.model' :right='true' width='320' temporary fixed)
     v-list
-      v-list-tile(@click.native='rightDrawer = !rightDrawer')
+      v-list-tile(@click='secondaryDrawer.model = !secondaryDrawer.model')
         v-list-tile-action
-          v-icon mdi-message-reply-text
+          v-icon.mdi-24px mdi-message-reply-text
         v-list-tile-title.title.text-uppercase Action Center
-  v-footer(:inset='footer.inset' height='24' class='grey lighten-3' app)
+  v-footer.justify-center(:inset='footer.inset' height='24' class='grey lighten-3' app)
     span.px-3.caption.font-weight-bold.grey--text openApp &copy; {{ $moment().format('YYYY') }}. Powered by molfarDevs
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 
-interface menuItem {
-  icon: string;
-  title: string;
-  to: string;
-}
+import { IDrawer, IMenuItem } from '~/types/interfaces' // eslint-disable-line
+import { menuItems } from '~/assets/navigation'
 
 @Component({
   components: {
@@ -58,34 +66,25 @@ interface menuItem {
 })
 export default class DefaultLayout extends Vue {
   darkTheme: Boolean = false
-  primaryDrawer = {
-    model: false,
-    clipped: false,
+  primaryDrawer: IDrawer = {
+    model: true,
+    clipped: true,
     mini: false
   }
-  secondaryDrawer = {
-    model: null
+  secondaryDrawer: IDrawer = {
+    model: false
   }
   footer = {
-    inset: false
+    inset: true
   }
-  items: Array<menuItem> = [
-    {
-      icon: 'mdi-xml',
-      title: 'Welcome',
-      to: '/'
-    },
-    {
-      icon: 'mdi-lock-pattern',
-      title: 'Inspire',
-      to: '/inspire'
-    },
-    {
-      icon: 'mdi-login-variant',
-      title: 'LogIn',
-      to: '/login'
+  items: IMenuItem[] = menuItems
+
+  get keymap () {
+    return {
+      'alt+left': () => { this.primaryDrawer.model = !this.primaryDrawer.model },
+      'alt+right': () => { this.secondaryDrawer.model = !this.secondaryDrawer.model }
     }
-  ]
+  }
 }
 </script>
 
