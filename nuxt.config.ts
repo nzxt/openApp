@@ -99,7 +99,7 @@ export default {
     strategies: {
       local: {
         endpoints: {
-          user: { url: `/api/account/getprofile`, method: 'get', propertyName: 'user' },
+          user: { url: `/api/account/getprofile`, method: 'get', propertyName: '' },
           login: { url: `/api/account/login`, method: 'post', propertyName: 'access_token' },
           logout: { url: `/api/account/logout`, method: 'get' }
         },
