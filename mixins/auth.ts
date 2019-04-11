@@ -16,7 +16,7 @@ export default class AuthMixin extends Vue {
 
   /**
    * Login method using auth-module with custom post-request
-   * logic, using toast module to show information, success
+   * logic, using noty module to show information, success
    * and error messages.
    *
    * @returns {Promise<T>}
@@ -37,8 +37,30 @@ export default class AuthMixin extends Vue {
   }
 
   /**
+   * Login method using auth-module with custom post-request
+   * logic, using noty module to show information, success
+   * and error messages.
+   *
+   * @returns {Promise<T>}
+   */
+  async jwtSignIn () {
+    this.$noty.show('<span class="subheading">Log in w/ JWT...</span>')
+    await this.$auth.loginWith('jwt', {
+      data: {
+        username: this.username,
+        password: this.password
+      }
+    }).then(() => {
+      this.$noty.success('Successfully connected!')
+    }).catch((err) => {
+      this.$noty.error('Error while connecting: ' + err.message)
+      this.loginHasError = true
+    })
+  }
+
+  /**
    * Logout method using auth-module with custom post-request
-   * logic, using toast module to show information, success
+   * logic, using noty module to show information, success
    * and error messages.
    *
    * @returns {Promise<void>}

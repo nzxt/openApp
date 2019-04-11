@@ -4,6 +4,8 @@ const cookieParser = require('cookie-parser')
 const jwt = require('express-jwt')
 const jsonwebtoken = require('jsonwebtoken')
 
+const refreshToken = 'ytnu86p77o8cpWBgLcxXxLUJwf42n7h6u7oOOFJypWM'
+
 // Create app
 const app = express()
 
@@ -16,7 +18,7 @@ app.use(
   jwt({
     secret: 'dummy'
   }).unless({
-    path: '/login'
+    path: '/api/auth/login'
   })
 )
 
@@ -24,6 +26,7 @@ app.use(
 
 // [POST] /login
 app.post('/login', (req, res, next) => {
+
   const { username, password } = req.body
   const valid = username.length && password === 'qwerty'
 
@@ -41,11 +44,7 @@ app.post('/login', (req, res, next) => {
     'dummy'
   )
 
-  res.json({
-    token: {
-      accessToken
-    }
-  })
+  res.json({ access_token: accessToken, refresh_token: refreshToken })
 })
 
 // [GET] /user
@@ -64,12 +63,12 @@ app.use((err, req, res, next) => {
   res.status(401).send(err + '')
 })
 
-app.listen(3030, () => {
-  console.log('Running fake Auth API Server at http://localhost:3030')
-})
+// app.listen(3030, () => {
+//   console.log('Running fake Auth API Server at http://localhost:3030')
+// })
 
 // -- export app --
-// module.exports = {
-//   path: '/api/auth',
-//   handler: app
-// }
+module.exports = {
+  path: '/api/auth',
+  handler: app
+}

@@ -11,7 +11,7 @@ v-container
         v-form(v-model='valid', @submit.prevent='signIn')
           v-card-title.justify-space-between.display-1.font-weight-thin.warning--text {{ $t('signin') }}
             v-icon.ml-2(color='grey', style='font-size:112px;' @click='$auth.fetchUser()') mdi-account-circle-outline
-            v-chip.ma-0.px-1(dark color='grey' @click='signOut' v-if='$auth.loggedIn')
+            v-chip.ml-2.px-1(dark color='grey' @click='signOut' v-if='$auth.loggedIn')
               v-icon.mdi-18px(left) mdi-logout-variant
               | {{ $t('signout')}}
             v-btn-toggle(v-else)
@@ -44,9 +44,22 @@ v-container
               clearable
             )
           v-card-actions.lighten-3
+            v-btn.secondary(
+              dark flat icon
+              @click='$auth.loginWith("auth0")'
+              :disabled='!valid'
+            )
+              v-icon mdi-shield-key
+            v-btn.secondary(
+              dark flat icon
+              @click='jwtSignIn'
+              :disabled='!valid'
+            )
+              v-icon mdi-shield-key-outline
             v-btn.primary(
               dark flat block
-              type='submit' :disabled='!valid'
+              type='submit'
+              :disabled='!valid'
             ) {{ $t('forms.submit') }}
 </template>
 
@@ -60,6 +73,7 @@ import ValidateRules from '~/mixins/validate'
   auth: false,
   mixins: [AuthMixin, ValidateRules]
 })
+
 export default class LoginPage extends Vue {
   valid: Boolean = false
   visible: Boolean = false

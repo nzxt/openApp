@@ -69,7 +69,7 @@ export default class DefaultLayout extends Vue {
   primaryDrawer: IDrawer = {
     model: true,
     clipped: true,
-    mini: false
+    mini: true
   }
   secondaryDrawer: IDrawer = {
     model: false

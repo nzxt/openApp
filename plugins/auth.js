@@ -8,11 +8,12 @@ export default ({ app, redirect }) => {
   // Only _actual_ login/outs (including resets) will be watched here.
   $auth.$storage.watchState('loggedIn', (isLoggedIn) => {
     // Follow @nuxtjs/auth workflow.
-    !isLoggedIn && redirect('home')
+    !isLoggedIn && $auth.redirect('home')
 
     // const indexLocalePath = app.localePath('index')
     // !isLoggedIn && redirect('301', indexLocalePath)
   })
 
+  if (!$auth.loggedIn) return
   console.log(`[AUTH] Hi, ${$auth.user.userName}!`)
 }

@@ -5,8 +5,7 @@ const i18n = require('./config/i18n')
 
 const isDev = process.env.NODE_ENV !== 'production'
 
-const { BASE_URL } = process.env
-const API_URL = BASE_URL + '/api'
+const { AUTH_URL, BASE_URL = 'http://localhost:3000' } = process.env
 
 export default {
   mode: 'spa',
@@ -74,8 +73,8 @@ export default {
     // Doc: https://axios.nuxtjs.org/usage
     ['@nuxtjs/dotenv', { filename: '.env' }],
     '@nuxtjs/pwa',
-    '@nuxtjs/axios',
     '@nuxtjs/auth',
+    '@nuxtjs/axios',
     ['nuxt-i18n', i18n],
     ['@nuxtjs/moment', { locales: ['uk', 'ru'],  defaultLocale: 'en',  plugin: true }]
   ],
@@ -86,10 +85,11 @@ export default {
     // See https://github.com/nuxt-community/axios-module#options
     debug: isDev,
     proxy: true,
-    baseURL: BASE_URL
+    // baseURL: BASE_URL
   },
   proxy: {
-    '/api': API_URL
+    '/api/account': AUTH_URL,
+    '/api/auth': BASE_URL
   },
 
  /*
@@ -99,13 +99,27 @@ export default {
     strategies: {
       local: {
         endpoints: {
-          login: { url: `${BASE_URL}/Login`, method: 'post', propertyName: 'access_token' },
-          logout: false,
-          user: { url: `${BASE_URL}/Users/1`, method: 'get', propertyName: 'user' }
+          user: { url: `/api/account/getprofile`, method: 'get', propertyName: 'user' },
+          login: { url: `/api/account/login`, method: 'post', propertyName: 'access_token' },
+          logout: { url: `/api/account/logout`, method: 'get' }
         },
         // tokenRequired: true,
         // tokenType: 'Bearer'
-        refreshToken: true
+      },
+      jwt: {
+        _scheme: '~/services/jwt-strategy.js',
+        endpoints: {
+          user: { url: `/api/auth/user`, method: 'get', propertyName: 'user' },
+          login: { url: `/api/auth/login`, method: 'post', propertyName: '' },
+          logout: { url: `/api/auth/logout`, method: 'get' }
+        }
+        // tokenType: 'Bearer',
+        // tokenKey: 'access_token',
+        // refreshTokenKey: 'refresh_token'
+      },
+      auth0: {
+        domain: 'nzxt.auth0.com',
+        client_id: 'wMKQRddoM79cMrcbk6yAohRXkhJpe-Rn'
       },
       facebook: {
         client_id: '1671464192946675',
@@ -127,14 +141,16 @@ export default {
       callback: '/callback'
     },
     cookie: false,
-    // plugins: ['~/plugins/auth']
+    plugins: ['~/plugins/auth']
   },
+
+  serverMiddleware: ['../services/auth'],
 
   /*
   ** Router config
   */
   router: {
-    middleware: 'auth'
+    middleware: ['auth']
   },
 
   vue: {
