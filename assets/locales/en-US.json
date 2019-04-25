@@ -6,19 +6,19 @@
 	  "Welcome"
 	],
 	"text2": [
-	  "Sales",
-	  "Assessment",
-	  "Center"
+	  "We",
+	  "Are",
+	  "Devs"
 	],
 	"text3": [
 	  "Let's",
-	  "Play",
-	  "Tests"
+	  "Write",
+	  "Code"
 	]
   },
-  "title": "openApp",
-  "title_html": "<span class='orange--text'>open</span><span class='red--text'>Application</span>",
-  "short_title_html": "<span class='orange--text'>open</span><span class='red--text'>App</span>",
+  "title": "molfarDevs",
+  "title_html": "<span class='orange--text'>molfar</span><span class='red--text'>Developers</span>",
+  "short_title_html": "<span class='orange--text'>molfar</span><span class='red--text'>Devs</span>",
   "actions": "Actions",
   "yes": "Yes",
   "no": "No",

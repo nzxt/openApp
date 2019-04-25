@@ -4,8 +4,6 @@ const cookieParser = require('cookie-parser')
 const jwt = require('express-jwt')
 const jsonwebtoken = require('jsonwebtoken')
 
-const refreshToken = 'ytnu86p77o8cpWBgLcxXxLUJwf42n7h6u7oOOFJypWM'
-
 // Create app
 const app = express()
 
@@ -44,7 +42,7 @@ app.post('/login', (req, res, next) => {
     'dummy'
   )
 
-  res.json({ access_token: accessToken, refresh_token: refreshToken })
+  res.json({ access_token: accessToken })
 })
 
 // [GET] /user

@@ -6,19 +6,19 @@
 	  "Видеть"
 	],
 	"text2": [
-	  "Центр",
-	  "Оценивания",
-	  "Продаж"
+	  "Мы",
+	  "Команда",
+	  "Разработчиков"
 	],
 	"text3": [
 	  "Давай",
-	  "Пройдём",
-	  "Тесты"
+	  "Писать",
+	  "Код"
 	]
   },
-  "title": "оупэнАпп",
-  "title_html": "<span class='orange--text'>оупэн</span><span class='red--text'>Аппликейшн</span>",
-  "short_title_html": "<span class='orange--text'>оупэн</span><span class='red--text'>Апп</span>",
+  "title": "мольфарДэвс",
+  "title_html": "<span class='orange--text'>мольфар</span><span class='red--text'>Дэвелоперс</span>",
+  "short_title_html": "<span class='orange--text'>мольфар</span><span class='red--text'>Дэвс</span>",
   "actions": "Действия",
   "yes": "Да",
   "no": "Нет",

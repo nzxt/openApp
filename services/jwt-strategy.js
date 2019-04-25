@@ -1,9 +1,7 @@
 const DEFAULTS = {
-  tokenType: 'Bearer',
   tokenName: 'Authorization',
-  refreshTokenName: 'RefreshToken',
   tokenKey: 'access_token',
-  refreshTokenKey: 'refresh_token',
+  tokenType: 'Bearer',
   globalToken: true
 }
 
@@ -18,13 +16,10 @@ export default class JwtScheme {
   mounted () {
     // Sync token
     const token = this.$auth.syncToken(this.name)
-    const refreshToken = this.$auth.syncRefreshToken(this.name)
+
     // Set axios token
     if (token) {
       this._setToken(token)
-    }
-    if (refreshToken) {
-      this._setToken(refreshToken)
     }
 
     return this.$auth.fetchUserOnce()
@@ -37,19 +32,16 @@ export default class JwtScheme {
     }
   }
 
-  _setRefreshToken (token) {
-    if (this.options.globalToken) {
-      // Set Authorization token for all axios requests
-      this.$auth.ctx.app.$axios.setHeader(this.options.refreshTokenName, token)
-    }
-  }
-
   _clearTokens () {
     if (this.options.globalToken) {
       // Clear Authorization token for all axios requests
       this.$auth.ctx.app.$axios.setHeader(this.options.tokenName, false)
-      this.$auth.ctx.app.$axios.setHeader(this.options.refreshTokenName, false)
     }
+  }
+
+  _logoutLocally () {
+    this._clearTokens()
+    return this.$auth.reset()
   }
 
   async login (endpoint) {
@@ -71,13 +63,6 @@ export default class JwtScheme {
 
     this.$auth.setToken(this.name, token)
     this._setToken(token)
-
-    const refreshToken = this.options.refreshTokenType
-      ? `${this.options.refreshTokenType} ${result[this.options.refreshTokenKey || 'refresh_token']}`
-      : result[this.options.refreshTokenKey || 'refresh_token']
-
-    this.$auth.setRefreshToken(this.name, refreshToken)
-    this._setRefreshToken(refreshToken)
 
     return this.fetchUser()
   }
@@ -104,16 +89,14 @@ export default class JwtScheme {
   async logout (endpoint) {
     // Only connect to logout endpoint if it's configured
     if (this.options.endpoints.logout) {
-      await this.$auth
-        .requestWith(this.name, endpoint, this.options.endpoints.logout)
+      await this.$auth.requestWith(
+        this.name,
+        endpoint,
+        this.options.endpoints.logout
+      )
         .catch(() => { })
     }
     // But logout locally regardless
     return this._logoutLocally()
-  }
-
-  _logoutLocally () {
-    this._clearTokens()
-    return this.$auth.reset()
   }
 }

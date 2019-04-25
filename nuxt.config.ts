@@ -5,18 +5,21 @@ const i18n = require('./config/i18n')
 
 const isDev = process.env.NODE_ENV !== 'production'
 
-const { AUTH_URL, BASE_URL = 'http://localhost:3000' } = process.env
+const {
+  BASE_URL = 'http://localhost:3000'
+ } = process.env
 
 export default {
   mode: 'spa',
+
   modern: !isDev,
 
   /*
   ** Manifest
   */
   manifest: {
-    name: 'openApp',
-    short_name: 'opA',
+    name: 'molfarDevelopers',
+    short_name: 'molfarDevs',
     description: 'NuxtJS boilerplate for scaffolding something new',
     theme_color: '#188269'
   },
@@ -88,8 +91,7 @@ export default {
     // baseURL: BASE_URL
   },
   proxy: {
-    '/api/account': AUTH_URL,
-    '/api/auth': BASE_URL
+    '/api': BASE_URL
   },
 
  /*
@@ -98,15 +100,6 @@ export default {
   auth: {
     strategies: {
       local: {
-        endpoints: {
-          user: { url: `/api/account/getprofile`, method: 'get', propertyName: '' },
-          login: { url: `/api/account/login`, method: 'post', propertyName: 'access_token' },
-          logout: { url: `/api/account/logout`, method: 'get' }
-        },
-        // tokenRequired: true,
-        // tokenType: 'Bearer'
-      },
-      jwt: {
         _scheme: '~/services/jwt-strategy.js',
         endpoints: {
           user: { url: `/api/auth/user`, method: 'get', propertyName: 'user' },
@@ -115,7 +108,6 @@ export default {
         }
         // tokenType: 'Bearer',
         // tokenKey: 'access_token',
-        // refreshTokenKey: 'refresh_token'
       },
       auth0: {
         domain: 'nzxt.auth0.com',

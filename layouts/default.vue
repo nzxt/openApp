@@ -1,19 +1,28 @@
 <template lang="pug">
 v-app(:dark='darkTheme' v-hotkey='keymap')
   v-navigation-drawer(dark class='tertiary' v-model='primaryDrawer.model' :mini-variant='primaryDrawer.mini' :clipped='primaryDrawer.clipped' fixed stateless app)
-    v-list(two-line)
-      v-list-tile(v-for='(item, i) in items' :key='i' :to='item.to' router exact)
-        v-list-tile-action
-          v-icon.mdi-36px {{ item.icon }}
-        v-list-tile-content
-          v-list-tile-title.title(v-text='item.title')
-          v-list-tile-sub-title.body-2(v-text='item.description')
-    v-list
-      v-list-tile
-        v-list-tile-action
-          v-switch(v-model='darkTheme' color='primary')
-        v-list-tile-content
-          | Night Mode
+    v-img(
+      src='https://cdn.vuetifyjs.com/images/parallax/material2.jpg'
+      class='fill-height repeating-gradient'
+    )
+      v-layout.lightbox.white--text(column fill-height)
+        v-list(two-line)
+          v-list-tile(v-for='(item, i) in items' :key='i' :to='item.to' router exact)
+            v-list-tile-action
+              v-icon.mdi-36px {{ item.icon }}
+            v-list-tile-content
+              v-list-tile-title.title(v-text='item.title')
+              v-list-tile-sub-title.body-2(v-text='item.description')
+        v-list(py-0 dense)
+          v-list-tile
+            v-list-tile-action
+              v-switch(v-model='darkTheme' color='primary')
+            v-list-tile-content
+              | Night Mode
+        v-spacer
+        v-flex(pa-2 shrink v-show='primaryDrawer.model && !primaryDrawer.mini' transition='fade-transition')
+          div.title molfarDevs
+          div.subheading molfarDevs@gmail.com
   v-toolbar(:clipped-left='primaryDrawer.clipped' fixed app)
     //- v-toolbar-side-icon(@click='drawer = !drawer')
     // v-btn(icon flat @click.stop.prevent @click='primaryDrawer.model = !primaryDrawer.model')
@@ -91,4 +100,15 @@ export default class DefaultLayout extends Vue {
 <style lang="stylus" scoped>
   .v-footer
     min-height 24px
+
+  .bottom-gradient
+    background-image: linear-gradient(to top, rgba(0, 0, 0, 0.4) 0%, transparent 72px)
+
+  .repeating-gradient
+    background-image: repeating-linear-gradient(-45deg,
+                        rgba(255,0,0,.25),
+                        rgba(255,0,0,.25) 5px,
+                        rgba(0,0,255,.25) 5px,
+                        rgba(0,0,255,.25) 10px
+                      )
 </style>

@@ -6,19 +6,19 @@
 	  "Бачити"
 	],
 	"text2": [
-	  "Центр",
-	  "Оцінювання",
-	  "Продаж"
+	  "Ми",
+	  "Команда",
+	  "Розробників"
 	],
 	"text3": [
 	  "Давай",
-	  "Пройдемо",
-	  "Тести"
+	  "Писати",
+	  "Код"
 	]
   },
-  "title": "оупенАпп",
-  "title_html": "<span class='orange--text'>оупен</span><span class='red--text'>Апплікєйшн</span>",
-  "short_title_html": "<span class='orange--text'>оупен</span><span class='red--text'>Апп</span>",
+  "title": "мольфарДевс",
+  "title_html": "<span class='orange--text'>мольфар</span><span class='red--text'>Девелоперс</span>",
+  "short_title_html": "<span class='orange--text'>мольфар</span><span class='red--text'>Девс</span>",
   "actions": "Дії",
   "yes": "Так",
   "no": "Ні",

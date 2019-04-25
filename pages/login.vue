@@ -50,12 +50,6 @@ v-container
               :disabled='!valid'
             )
               v-icon mdi-shield-key
-            v-btn.secondary(
-              dark flat icon
-              @click='jwtSignIn'
-              :disabled='!valid'
-            )
-              v-icon mdi-shield-key-outline
             v-btn.primary(
               dark flat block
               type='submit'

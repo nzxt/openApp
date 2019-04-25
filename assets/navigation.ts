@@ -2,16 +2,16 @@ import { IMenuItem } from '~/types/interfaces' // eslint-disable-line
 
 export const menuItems: IMenuItem[] = [
   {
-    icon: 'mdi-account-search',
-    title: 'SAC',
-    description: 'Sales Assessment Center',
-    to: '/sac'
-  },
-  {
     icon: 'mdi-xml',
     title: 'Welcome',
     description: 'Main Application Page',
     to: '/'
+  },
+  {
+    icon: 'mdi-account-search',
+    title: 'Accounts',
+    description: 'Dev Accounts Page',
+    to: '/devs'
   },
   {
     icon: 'mdi-lock-pattern',
